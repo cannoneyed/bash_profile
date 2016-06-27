@@ -33,7 +33,11 @@ alias git=hub
 alias gbo="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname) %(committerdate) %(authorname)' | sed 's/refs\/heads\///g'"
 alias gd="git diff"
 alias gacm="git add .; git commit -m"
+
 alias gp="git push"
+alias gpl="git pull"
+alias gplo="git pull origin"
+alias gf="git fetch"
 
 alias kan="killall node"
 ka () {
