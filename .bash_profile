@@ -19,6 +19,7 @@ alias jb="bundle exec jekyll build"
 alias gb="git branch"
 alias gc="git commit"
 alias gcm="git commit -m"
+alias gca="git commit --amend"
 alias gs="git status"
 alias ga="git add"
 alias gpo="git push origin"
@@ -28,11 +29,22 @@ alias gcp="git cherry-pick"
 alias gpom="git push origin master"
 alias grv="git remote -v"
 alias gh="git hist"
+alias gl="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
 alias glu="git log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 alias git=hub
 alias gbo="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname) %(committerdate) %(authorname)' | sed 's/refs\/heads\///g'"
-alias gd="git diff"
 alias gacm="git add .; git commit -m"
+alias grc="git rebase --continue"
+
+unalias gd
+function gd() {
+    if [ -n "$1" ]
+    then
+        git diff --color "$1" | diff-so-fancy | less --tabs=4 -RFX
+    else
+        git diff --color | diff-so-fancy | less --tabs=4 -RFX
+    fi
+}
 
 alias gp="git push"
 alias gpl="git pull"
