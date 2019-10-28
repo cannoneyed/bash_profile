@@ -1,10 +1,49 @@
-export PS1="\[\033[32m\]andrewcoenen:\[\033[33;1m\]\W\[\033[m\]\$ "
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
+if [ -f ~/.bashrc ]; then
+      . ~/.bashrc
+fi
 
-source ~/git-completion.bash
+alias goog="cd /google/src/cloud/andycoenen"
 
-export EDITOR='atom'
+# Typescript remote hostname
+export REMOTE_TSSERVER_HOSTNAME=andycoenen.mtv.corp.google.com
+
+# Mounting filesystem
+export DESKTOP_HOSTNAME=andycoenen.mtv.corp.google.com
+alias mount="/google/src/head/depot/google3/javascript/typescript/contrib/remote_tslib/mount.sh"
+
+# Allow g4d tab completion
+source /Library/GoogleCorpSupport/srcfs/shell_completion/enable_completion.sh
+
+# bagpipe
+export P4CONFIG=.p4config
+export P4EDITOR=vi
+
+# Global stuff
+export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH="$PATH:$(yarn global bin)"
+
+# Homebrew stuff
+export PATH=$HOME/homebrew/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+
+export PS1="\[\033[32m\]\u:\[\033[33;1m\]\W\[\033[m\]\$ "
+
+export EDITOR='code'
+
+alias prof="code ~/.bash_profile"
+alias reprof=". ~/.bash_profile"
+alias auth="AUTH_HOST=$DESKTOP_HOSTNAME python ~/bin/auth_refresh-gtunnel.py"
+
+gssh() {
+  ssh andycoenen@andycoenen.mtv.corp.google.com -L ${1-5432}:localhost:${1-5432} -t bash -i
+}
+
+RO_MOUNTS=()
+
+RW_MOUNTS=(
+    /usr/local/google/home/$USER)
+
 
 #Meta alias's
 alias prof="atom ~/.bash_profile"
@@ -64,6 +103,37 @@ mkcd () {
 
 #Run a python simple server
 alias serve="python -m SimpleHTTPServer"
+
+
+export PATH=$HOME/bin:$PATH
+
+. $HOME/.bagpipe/setup.sh $HOME/.bagpipe andycoenen.mtv.corp.google.com
+export PATH=$HOME/bin:$PATH # added by Anaconda2 2018.12 installer
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$(CONDA_REPORT_ERRORS=false '/anaconda2/bin/conda' shell.bash hook 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    \eval "$__conda_setup"
+else
+    if [ -f "/anaconda2/etc/profile.d/conda.sh" ]; then
+        . "/anaconda2/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="/anaconda2/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/andycoenen/google-cloud-sdk/path.bash.inc' ]; then . '/Users/andycoenen/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/andycoenen/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/andycoenen/google-cloud-sdk/completion.bash.inc'; fi
+
+
+
+
 
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
